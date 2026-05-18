@@ -28,7 +28,7 @@ export default function TestimonialsSection() {
   if (testimonials.length === 0) return null;
 
   return (
-    <section className="py-16 md:py-24">
+    <section id="testimonials" className="py-16 md:py-24 scroll-mt-20">
       <div className="container">
         <div className="mb-12 text-center">
           <p className="mb-2 font-sans text-sm font-semibold uppercase tracking-widest text-secondary">Testimoni</p>
