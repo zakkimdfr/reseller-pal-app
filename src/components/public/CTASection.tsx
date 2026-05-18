@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 export default function CTASection() {
   return (
-    <section className="bg-secondary py-16 text-secondary-foreground md:py-24">
+    <section id="reseller" className="bg-secondary py-16 text-secondary-foreground md:py-24 scroll-mt-20">
       <div className="container text-center">
         <h2 className="mb-4 text-3xl font-bold md:text-4xl">Tertarik Jadi Reseller?</h2>
         <p className="mx-auto mb-8 max-w-lg font-sans text-base opacity-90">

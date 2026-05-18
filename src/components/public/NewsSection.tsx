@@ -29,7 +29,7 @@ export default function NewsSection() {
   if (articles.length === 0) return null;
 
   return (
-    <section className="bg-muted/40 py-16 md:py-24">
+    <section id="education" className="bg-muted/40 py-16 md:py-24 scroll-mt-20">
       <div className="container">
         <div className="mb-12 text-center">
           <p className="mb-2 font-sans text-sm font-semibold uppercase tracking-widest text-secondary">Artikel & Berita</p>
