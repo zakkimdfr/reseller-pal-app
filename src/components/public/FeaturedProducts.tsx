@@ -1,150 +1,123 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { MessageCircle, ShoppingBag } from "lucide-react";
+import { MessageCircle } from "lucide-react";
 
 type Product = {
   id: string;
   name: string;
   category: string;
   selling_price: number;
-  price_3?: number | null;
-  price_6?: number | null;
   description: string | null;
 };
 
+const FILTERS = [
+  { key: "semua", label: "Semua" },
+  { key: "bp", label: "British Propolis" },
+  { key: "belgie", label: "Belgie Skincare" },
+];
+
+function classify(p: Product): "bp" | "belgie" {
+  const c = (p.category || "").toLowerCase();
+  const n = p.name.toLowerCase();
+  if (c.includes("belgie") || n.includes("belgie")) return "belgie";
+  return "bp";
+}
+
+function thumbVariant(p: Product): string {
+  const cat = classify(p);
+  const n = p.name.toLowerCase();
+  if (cat === "belgie") return "bg-gradient-to-br from-[#ede7db] to-[#ddd5c5] text-primary";
+  if (n.includes("biru") || n.includes("norway")) return "bg-gradient-to-br from-[#2a1f0a] to-[#5a3c0f] text-secondary";
+  return "bg-gradient-to-br from-primary to-[hsl(153,40%,25%)] text-primary-foreground/90";
+}
+
 export default function FeaturedProducts() {
   const [products, setProducts] = useState<Product[]>([]);
-  const [activeCategory, setActiveCategory] = useState<string>("Semua");
+  const [filter, setFilter] = useState<string>("semua");
 
   useEffect(() => {
     supabase
       .from("products")
-      .select("*")
+      .select("id, name, category, selling_price, description")
       .order("name")
-      .then(({ data, error }) => {
-        if (error || !data) return;
-        setProducts(data as Product[]);
-      });
+      .then(({ data }) => data && setProducts(data));
   }, []);
 
   const formatPrice = (p: number) =>
-    new Intl.NumberFormat("id-ID", {
-      style: "currency",
-      currency: "IDR",
-      minimumFractionDigits: 0,
-    }).format(p);
+    new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR", minimumFractionDigits: 0 }).format(p);
 
   const waUrl = (name: string) =>
-    `https://wa.me/6281234567890?text=${encodeURIComponent(`Halo, saya tertarik dengan produk ${name}. Bisa minta info lebih lanjut?`)}`;
+    `https://wa.me/628XXXXXXXXX?text=${encodeURIComponent(`Halo, saya mau order ${name}`)}`;
 
-  const filteredProducts =
-    activeCategory === "semua"
-      ? products
-      : products.filter((p) => p.category === activeCategory);
+  const filtered = useMemo(
+    () => (filter === "semua" ? products : products.filter((p) => classify(p) === filter)),
+    [products, filter]
+  );
+
   return (
-    <section id="products" className="relative py-16 md:py-24 scroll-mt-20">
-      <div className="container">
-        <div className="mb-12 flex flex-col items-start justify-between gap-4 md:flex-row md:items-end">
-          <div>
-            <p className="mb-2 font-sans text-sm font-semibold uppercase tracking-widest text-secondary">
-              Produk Kami
-            </p>
-            <h2 className="font-serif text-3xl font-bold text-foreground md:text-5xl">
-              Katalog Produk
-            </h2>
-          </div>
-          <p className="max-w-md font-sans text-sm text-muted-foreground">
-            Pilihan produk kesehatan & skincare terbaik dengan harga reseller
-            paling kompetitif.
-          </p>
+    <section id="products" className="bg-background px-[5%] py-20 md:py-24 scroll-mt-20">
+      <div className="mx-auto mb-12 flex max-w-6xl flex-wrap items-end justify-between gap-4">
+        <div>
+          <p className="mb-3 font-sans text-[11px] font-medium uppercase tracking-[0.16em] text-secondary">Katalog Produk</p>
+          <h2 className="font-serif font-bold leading-[1.1] text-foreground" style={{ fontSize: "clamp(34px, 5vw, 56px)" }}>
+            Pilihan Terbaik<br/>untuk Keluarga
+          </h2>
         </div>
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          <div className="mb-8 flex gap-3">
-            {["Semua", "British Propolis", "Belgie Skincare"].map((c) => (
-              <button
-                key={c}
-                onClick={() => setActiveCategory(c.toLowerCase())}
-                className={`px-3 py-1 text-sm font-medium uppercase tracking-wide transition ${
-                  activeCategory === c.toLowerCase()
-                    ? "bg-secondary text-secondary-foreground"
-                    : "bg-primary/10 text-primary-foreground hover:bg-primary/20"
-                }`}
-              >
-                {c}
-              </button>
-            ))}
-          </div>
-          {filteredProducts.map((p) => (
-            <Card
-              key={p.id}
-              className="group flex flex-col overflow-hidden border-border/60 transition hover:-translate-y-1 hover:shadow-xl hover:shadow-primary/10"
+        <div className="flex flex-wrap gap-2">
+          {FILTERS.map((f) => (
+            <button
+              key={f.key}
+              onClick={() => setFilter(f.key)}
+              className={`rounded-full border px-4 py-1.5 font-sans text-[13px] transition ${
+                filter === f.key
+                  ? "border-primary bg-primary text-primary-foreground"
+                  : "border-muted bg-transparent text-muted-foreground hover:border-primary hover:bg-primary hover:text-primary-foreground"
+              }`}
             >
-              <div className="relative flex h-52 items-center justify-center bg-gradient-to-br from-muted to-muted/40">
-                <span className="px-4 text-center font-serif text-lg font-semibold text-muted-foreground/80">
-                  {p.name}
-                </span>
-                <span className="absolute right-3 top-3 rounded-full bg-secondary px-2.5 py-0.5 font-sans text-[10px] font-semibold uppercase tracking-wider text-secondary-foreground">
-                  {p.category}
-                </span>
-              </div>
-              <CardContent className="flex flex-1 flex-col p-5">
-                <h3 className="mb-2 font-serif text-lg font-semibold text-foreground">
-                  {p.name}
-                </h3>
-                {p.description && (
-                  <p className="mb-3 font-sans text-xs text-muted-foreground line-clamp-2">
-                    {p.description}
-                  </p>
-                )}
-                <p className="mb-4 font-sans text-xl font-bold text-primary">
-                  <div className="mb-4 flex flex-wrap gap-2">
-                    {p.price_3 && (
-                      <span className="rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium text-green-800">
-                        3+ {formatPrice(p.price_3)}
-                      </span>
-                    )}
-                    {p.price_6 && (
-                      <span className="rounded-full bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-800">
-                        6+ {formatPrice(p.price_6)}
-                      </span>
-                    )}
-                  </div>
-                  {formatPrice(p.selling_price)}
-                </p>
-                <div className="mt-auto flex gap-2">
-                  <a
-                    href={waUrl(p.name)}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex-1"
-                  >
-                    <Button
-                      size="sm"
-                      className="w-full bg-[#25D366] text-white hover:bg-[#1faa54]"
-                    >
-                      <MessageCircle className="mr-1.5 h-3.5 w-3.5" /> Order
-                    </Button>
-                  </a>
-                  <a
-                    href="https://shopee.co.id"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      className="border-secondary/40 text-secondary hover:bg-secondary hover:text-secondary-foreground"
-                    >
-                      <ShoppingBag className="h-3.5 w-3.5" />
-                    </Button>
-                  </a>
-                </div>
-              </CardContent>
-            </Card>
+              {f.label}
+            </button>
           ))}
         </div>
+      </div>
+
+      <div className="mx-auto grid max-w-6xl gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        {filtered.map((p) => {
+          const cat = classify(p);
+          const isBp = cat === "bp";
+          return (
+            <article key={p.id} className="overflow-hidden rounded-[10px] border border-black/5 bg-white transition hover:-translate-y-1 hover:shadow-[0_12px_40px_hsl(var(--primary)/0.12)]">
+              <div className={`flex h-44 items-center justify-center font-serif text-xl font-semibold tracking-wide ${thumbVariant(p)}`}>
+                {p.name}
+              </div>
+              <div className="p-5">
+                <p className="mb-1.5 font-sans text-[10px] font-medium uppercase tracking-[0.12em] text-secondary">
+                  {isBp ? "British Propolis" : "Belgie Skincare"}
+                </p>
+                <h3 className="mb-1 font-serif text-xl font-semibold text-foreground">{p.name}</h3>
+                {p.description && (
+                  <p className="mb-3 font-sans text-[12.5px] leading-[1.5] text-muted-foreground line-clamp-2">{p.description}</p>
+                )}
+                {isBp && (
+                  <div className="my-3 flex flex-wrap gap-1.5">
+                    <span className="rounded-full border border-muted bg-muted/40 px-2.5 py-1 font-sans text-[11px] text-muted-foreground">1 biji</span>
+                    <span className="rounded-full border border-muted bg-muted/40 px-2.5 py-1 font-sans text-[11px] text-muted-foreground">Paket 3</span>
+                    <span className="rounded-full border border-secondary/30 bg-secondary/10 px-2.5 py-1 font-sans text-[11px] font-medium text-secondary">Paket 6 ✦</span>
+                  </div>
+                )}
+                <div className="font-serif text-2xl font-bold text-primary">{formatPrice(p.selling_price)}</div>
+                <div className="mb-4 font-sans text-[11px] text-muted-foreground">{isBp ? "per botol / mulai dari" : "per pcs"}</div>
+                <a
+                  href={waUrl(p.name)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex w-full items-center justify-center gap-1.5 rounded-md bg-primary py-2.5 font-sans text-[13px] font-medium text-primary-foreground transition hover:bg-primary/85"
+                >
+                  <MessageCircle className="h-3.5 w-3.5" /> Order via WA
+                </a>
+              </div>
+            </article>
+          );
+        })}
       </div>
     </section>
   );
