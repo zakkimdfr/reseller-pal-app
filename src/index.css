@@ -1,0 +1,73 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 43 36% 95%;        /* cream warm */
+    --foreground: 150 45% 10%;       /* hijau gelap */
+    --primary: 153 52% 16%;          /* hijau tua #1a3828 */
+    --primary-foreground: 43 36% 95%;
+    --secondary: 38 55% 48%;         /* gold #c49a3c */
+    --secondary-foreground: 0 0% 100%;
+    --muted: 43 25% 90%;
+    --muted-foreground: 150 15% 42%;
+    --border: 43 20% 85%;
+  }
+
+  .dark {
+    --background: 150 30% 6%;
+    --foreground: 40 33% 95%;
+
+    --card: 150 25% 10%;
+    --card-foreground: 40 33% 95%;
+
+    --popover: 150 25% 10%;
+    --popover-foreground: 40 33% 95%;
+
+    --primary: 153 45% 35%;
+    --primary-foreground: 40 33% 98%;
+
+    --secondary: 38 65% 49%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 150 20% 15%;
+    --muted-foreground: 40 10% 60%;
+
+    --accent: 38 65% 49%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 62% 30%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 150 20% 18%;
+    --input: 150 20% 18%;
+    --ring: 153 45% 35%;
+
+    --sidebar-background: 150 30% 8%;
+    --sidebar-foreground: 40 33% 95%;
+    --sidebar-primary: 38 65% 49%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 150 25% 14%;
+    --sidebar-accent-foreground: 40 33% 95%;
+    --sidebar-border: 150 20% 18%;
+    --sidebar-ring: 38 65% 49%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-background text-foreground font-sans;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', serif;
+  }
+}
