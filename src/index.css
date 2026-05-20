@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap');
+=======
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap');
+>>>>>>> de76d127878e4568f1fddf8edfd693ffe015144c
 
 @tailwind base;
 @tailwind components;
@@ -6,6 +10,7 @@
 
 @layer base {
   :root {
+<<<<<<< HEAD
     --background: 43 36% 95%;        /* cream warm */
     --foreground: 150 45% 10%;       /* hijau gelap */
     --primary: 153 52% 16%;          /* hijau tua #1a3828 */
@@ -15,6 +20,46 @@
     --muted: 43 25% 90%;
     --muted-foreground: 150 15% 42%;
     --border: 43 20% 85%;
+=======
+    --background: 40 33% 98%;
+    --foreground: 150 30% 12%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 150 30% 12%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 150 30% 12%;
+
+    --primary: 153 45% 23%;
+    --primary-foreground: 40 33% 98%;
+
+    --secondary: 38 65% 49%;
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 40 20% 93%;
+    --muted-foreground: 150 10% 45%;
+
+    --accent: 38 65% 49%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 40 15% 88%;
+    --input: 40 15% 88%;
+    --ring: 153 45% 23%;
+
+    --radius: 0.625rem;
+
+    --sidebar-background: 153 45% 18%;
+    --sidebar-foreground: 40 33% 95%;
+    --sidebar-primary: 38 65% 49%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 153 40% 25%;
+    --sidebar-accent-foreground: 40 33% 95%;
+    --sidebar-border: 153 35% 28%;
+    --sidebar-ring: 38 65% 49%;
+>>>>>>> de76d127878e4568f1fddf8edfd693ffe015144c
   }
 
   .dark {

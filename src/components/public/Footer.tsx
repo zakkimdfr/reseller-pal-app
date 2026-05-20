@@ -7,8 +7,13 @@ export default function Footer() {
         <div className="grid gap-8 md:grid-cols-3">
           <div>
             <h3 className="mb-3 text-lg font-bold">British Propolis</h3>
+<<<<<<< HEAD
             <p className="text-sm font-light opacity-60 leading-relaxed">
               Distributor resmi British Propolis & Belgie Skincare di Bandung. Produk kesehatan alami berkualitas untuk keluarga Indonesia.
+=======
+            <p className="text-sm opacity-80">
+              Produk kesehatan alami terbaik dari British Propolis untuk keluarga Indonesia.
+>>>>>>> de76d127878e4568f1fddf8edfd693ffe015144c
             </p>
           </div>
           <div>
@@ -16,17 +21,29 @@ export default function Footer() {
             <div className="flex flex-col gap-2">
               <Link to="/" className="text-sm opacity-80 hover:opacity-100">Home</Link>
               <Link to="/products" className="text-sm opacity-80 hover:opacity-100">Produk</Link>
+<<<<<<< HEAD
               <Link to="/testimonials" className="text-sm opacity-80 hover:opacity-100">Testimoni</Link>
+=======
+              <Link to="/education" className="text-sm opacity-80 hover:opacity-100">Edukasi</Link>
+>>>>>>> de76d127878e4568f1fddf8edfd693ffe015144c
               <Link to="/reseller" className="text-sm opacity-80 hover:opacity-100">Jadi Reseller</Link>
             </div>
           </div>
           <div>
+<<<<<<< HEAD
             {/* <h4 className="mb-3 font-sans text-sm font-semibold uppercase tracking-wider opacity-70">Belanja</h4> */}
             <div>
               <h4 className="mb-3 font-sans text-sm font-semibold uppercase tracking-wider opacity-70">Kontak</h4>
               <div className="flex flex-col gap-2">
                 <a href="https://wa.me/628XXXXXXXXX" target="_blank" rel="noopener noreferrer" className="text-sm opacity-70 hover:opacity-100 hover:text-secondary transition">WhatsApp</a>
               </div>
+=======
+            <h4 className="mb-3 font-sans text-sm font-semibold uppercase tracking-wider opacity-70">Belanja</h4>
+            <div className="flex flex-col gap-2">
+              <a href="https://shopee.co.id" target="_blank" rel="noopener noreferrer" className="text-sm opacity-80 hover:opacity-100">Shopee</a>
+              <a href="https://tokopedia.com" target="_blank" rel="noopener noreferrer" className="text-sm opacity-80 hover:opacity-100">Tokopedia</a>
+              <a href="https://wa.me/6281234567890" target="_blank" rel="noopener noreferrer" className="text-sm opacity-80 hover:opacity-100">WhatsApp</a>
+>>>>>>> de76d127878e4568f1fddf8edfd693ffe015144c
             </div>
           </div>
         </div>

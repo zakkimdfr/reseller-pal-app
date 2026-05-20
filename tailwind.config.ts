@@ -1,5 +1,8 @@
 import type { Config } from "tailwindcss";
+<<<<<<< HEAD
 import tailwindcssAnimate from "tailwindcss-animate";
+=======
+>>>>>>> de76d127878e4568f1fddf8edfd693ffe015144c
 
 export default {
   darkMode: ["class"],
@@ -15,9 +18,15 @@ export default {
     },
     extend: {
       fontFamily: {
+<<<<<<< HEAD
       sans: ["DM Sans", "sans-serif"],
       serif: ["Cormorant Garamond", "serif"],
     },
+=======
+        sans: ["Plus Jakarta Sans", "sans-serif"],
+        serif: ["Playfair Display", "serif"],
+      },
+>>>>>>> de76d127878e4568f1fddf8edfd693ffe015144c
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -89,5 +98,9 @@ export default {
       },
     },
   },
+<<<<<<< HEAD
   plugins: [tailwindcssAnimate],
+=======
+  plugins: [require("tailwindcss-animate")],
+>>>>>>> de76d127878e4568f1fddf8edfd693ffe015144c
 } satisfies Config;
