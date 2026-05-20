@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { Menu, X, Leaf } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Menu, X } from "lucide-react";
 
 const navLinks = [
   { label: "Produk", id: "products" },
-  { label: "Edukasi", id: "education" },
+  { label: "Manfaat", id: "education" },
   { label: "Testimoni", id: "testimonials" },
-  { label: "Jadi Reseller", id: "reseller" },
+  { label: "Jadi Mitra", id: "reseller" },
+  { label: "Kontak", id: "kontak" },
 ];
 
 export default function Navbar() {
@@ -21,58 +21,75 @@ export default function Navbar() {
       navigate(`/#${id}`);
       return;
     }
-    const el = document.getElementById(id);
-    el?.scrollIntoView({ behavior: "smooth", block: "start" });
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
   return (
-    <nav className="sticky top-0 z-50 bg-primary/95 backdrop-blur-md border-b border-secondary/15">
-      <div className="container flex h-16 items-center justify-between">
-        <Link to="/" className="font-serif text-xl font-semibold text-primary-foreground tracking-wide">
+    <>
+      <nav className="fixed inset-x-0 top-0 z-[100] flex h-[68px] items-center justify-between border-b border-secondary/15 bg-primary/95 px-[5%] backdrop-blur-md">
+        <Link to="/" className="font-serif text-[22px] font-semibold tracking-wide text-primary-foreground">
           British <span className="text-secondary">Propolis</span>
         </Link>
 
-        {/* Desktop */}
-        <div className="hidden items-center gap-7 md:flex">
+        <ul className="hidden items-center gap-8 md:flex">
           {navLinks.map((l) => (
-            <button
-              key={l.id}
-              onClick={() => scrollTo(l.id)}
-              className="text-sm font-light text-primary-foreground/70 transition hover:text-secondary tracking-wide">
-              {l.label}
-            </button>
+            <li key={l.id}>
+              <button
+                onClick={() => scrollTo(l.id)}
+                className="font-sans text-[13.5px] text-primary-foreground/70 tracking-wide transition hover:text-secondary"
+              >
+                {l.label}
+              </button>
+            </li>
           ))}
-          <Link to="/login">
+        </ul>
 
-            <Button size="sm" className="bg-secondary text-secondary-foreground hover:bg-secondary/90 font-medium">
-              Dashboard
-            </Button>
+        <div className="hidden items-center gap-3 md:flex">
+          <a
+            href="https://wa.me/628XXXXXXXXX?text=Halo%2C%20saya%20ingin%20tanya%20produk"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rounded bg-secondary px-5 py-2.5 font-sans text-[13px] font-medium text-primary transition hover:bg-secondary/90"
+          >
+            Order via WA
+          </a>
+          <Link
+            to="/login"
+            className="font-sans text-[12px] text-primary-foreground/40 transition hover:text-primary-foreground/70"
+            title="Internal Dashboard"
+          >
+            •
           </Link>
         </div>
 
-        {/* Mobile toggle */}
-        <button className="md:hidden" onClick={() => setOpen(!open)} aria-label="Toggle menu">
+        <button className="md:hidden text-primary-foreground" onClick={() => setOpen(!open)} aria-label="Menu">
           {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </button>
-      </div>
+      </nav>
 
-      {/* Mobile menu */}
       {open && (
-        <div className="border-t bg-background px-4 pb-4 md:hidden">
+        <div className="fixed inset-x-0 top-[68px] z-[99] flex flex-col border-t border-secondary/15 bg-primary px-[5%] py-5 md:hidden">
           {navLinks.map((l) => (
             <button
               key={l.id}
               onClick={() => scrollTo(l.id)}
-              className="block w-full py-2 text-left text-sm font-medium text-muted-foreground"
+              className="border-b border-white/[0.06] py-3 text-left font-sans text-[15px] text-primary-foreground/75"
             >
               {l.label}
             </button>
           ))}
-          <Link to="/login" onClick={() => setOpen(false)}>
-            <Button size="sm" variant="outline" className="mt-2 w-full border-primary/30 text-primary">Dashboard</Button>
-          </Link>
+          <a
+            href="https://wa.me/628XXXXXXXXX"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="py-3 text-left font-sans text-[15px] text-secondary"
+          >
+            Order via WhatsApp ↗
+          </a>
         </div>
       )}
-    </nav>
+
+      <div className="h-[68px]" />
+    </>
   );
 }

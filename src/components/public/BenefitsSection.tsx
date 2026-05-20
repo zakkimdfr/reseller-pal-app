@@ -1,35 +1,29 @@
-import { Shield, Heart, Leaf, Sparkles, Zap, FlaskConical } from "lucide-react";
-
-
-const benefits = [
-  { icon: Shield, title: "Meningkatkan Imunitas", desc: "Propolis mengandung flavonoid yang memperkuat sistem kekebalan tubuh secara alami." },
-  { icon: Heart, title: "Menjaga Kesehatan Jantung", desc: "Membantu menjaga kolesterol dan tekanan darah tetap stabil." },
-  { icon: Leaf, title: "100% Alami", desc: "Dibuat dari bahan-bahan alami tanpa bahan kimia berbahaya." },
-  { icon: Sparkles, title: "Perawatan Kulit", desc: "Rangkaian skincare Belgie untuk kulit sehat, cerah, dan terawat." },
-  { icon: FlaskConical, title: "Teruji Klinis", desc: "Formula telah melalui uji klinis dan mendapatkan sertifikasi dari lembaga kesehatan terpercaya." },
-  { icon: Zap, title: "Antioksidan Tinggi", desc: "Kandungan antioksidan tinggi melawan radikal bebas dan memperlambat penuaan sel." },
-
+const items = [
+  { i: "🛡️", t: "Meningkatkan Imunitas", d: "Flavonoid dalam propolis memperkuat sistem kekebalan tubuh secara alami dan berkelanjutan." },
+  { i: "❤️", t: "Kesehatan Jantung", d: "Membantu menjaga kadar kolesterol normal dan tekanan darah tetap stabil." },
+  { i: "🌿", t: "100% Bahan Alami", d: "Tanpa bahan kimia berbahaya. Aman untuk seluruh anggota keluarga termasuk anak-anak." },
+  { i: "✨", t: "Perawatan Kulit", d: "Rangkaian Belgie Skincare untuk kulit sehat, cerah, dan terawat dari dalam maupun luar." },
+  { i: "🔬", t: "Teruji Klinis", d: "Formula telah melalui uji klinis dan mendapatkan sertifikasi dari lembaga kesehatan terpercaya." },
+  { i: "🍯", t: "Antioksidan Tinggi", d: "Kandungan antioksidan tinggi melawan radikal bebas dan memperlambat proses penuaan sel." },
 ];
 
 export default function BenefitsSection() {
   return (
-    <section className="bg-primary py-16 md:py-24">
-      <div className="container">
-        <div className="mb-12 text-center">
-          <p className="mb-2 font-sans text-sm font-semibold uppercase tracking-widest text-secondary">Mengapa British Propolis?</p>
-          <h2 className="text-3xl font-bold text-foreground md:text-4xl">Manfaat Kesehatan Propolis</h2>
-        </div>
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {benefits.map((b) => (
-            <div key={b.title} className="rounded-xl border border-primary-foreground/10 bg-primary-foreground/5 p-7 transition hover:border-secondary/30 hover:bg-primary-foreground/8">
-              <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-lg bg-secondary/20">
-                <b.icon className="h-5 w-5 text-secondary" />
-              </div>
-              <h3 className="mb-2 font-serif text-xl font-semibold text-primary-foreground">{b.title}</h3>
-              <p className="font-sans text-sm font-light text-primary-foreground/50 leading-relaxed">{b.desc}</p>
-            </div>
-          ))}
-        </div>
+    <section id="education" className="bg-primary px-[5%] py-20 md:py-24 scroll-mt-20">
+      <div className="mx-auto mb-12 max-w-6xl">
+        <p className="mb-3 font-sans text-[11px] font-medium uppercase tracking-[0.16em] text-secondary">Manfaat & Keunggulan</p>
+        <h2 className="font-serif font-bold leading-[1.1] text-primary-foreground" style={{ fontSize: "clamp(34px, 5vw, 56px)" }}>
+          Kenapa Ribuan Keluarga<br/>Percaya British Propolis?
+        </h2>
+      </div>
+      <div className="mx-auto grid max-w-6xl gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {items.map((b) => (
+          <div key={b.t} className="rounded-[10px] border border-primary-foreground/10 bg-primary-foreground/[0.04] p-7 transition hover:border-secondary/30 hover:bg-primary-foreground/[0.08]">
+            <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-lg bg-secondary/15 text-xl">{b.i}</div>
+            <h3 className="mb-2 font-serif text-xl font-semibold text-primary-foreground">{b.t}</h3>
+            <p className="font-sans text-[13.5px] font-light leading-[1.65] text-primary-foreground/50">{b.d}</p>
+          </div>
+        ))}
       </div>
     </section>
   );
