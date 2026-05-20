@@ -26,20 +26,10 @@ export default function Navbar() {
   };
 
   return (
-<<<<<<< HEAD
     <nav className="sticky top-0 z-50 bg-primary/95 backdrop-blur-md border-b border-secondary/15">
       <div className="container flex h-16 items-center justify-between">
         <Link to="/" className="font-serif text-xl font-semibold text-primary-foreground tracking-wide">
           British <span className="text-secondary">Propolis</span>
-=======
-    <nav className="sticky top-0 z-50 border-b border-border/60 bg-background/80 backdrop-blur-md">
-      <div className="container flex h-16 items-center justify-between">
-        <Link to="/" className="flex items-center gap-2 font-serif text-xl font-bold text-primary">
-          <span className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-primary-foreground">
-            <Leaf className="h-4 w-4" />
-          </span>
-          British Propolis
->>>>>>> de76d127878e4568f1fddf8edfd693ffe015144c
         </Link>
 
         {/* Desktop */}
@@ -48,21 +38,13 @@ export default function Navbar() {
             <button
               key={l.id}
               onClick={() => scrollTo(l.id)}
-<<<<<<< HEAD
               className="text-sm font-light text-primary-foreground/70 transition hover:text-secondary tracking-wide">
-=======
-              className="relative text-sm font-medium text-muted-foreground transition hover:text-primary after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-0 after:bg-secondary after:transition-all hover:after:w-full"
-            >
->>>>>>> de76d127878e4568f1fddf8edfd693ffe015144c
               {l.label}
             </button>
           ))}
           <Link to="/login">
-<<<<<<< HEAD
+
             <Button size="sm" className="bg-secondary text-secondary-foreground hover:bg-secondary/90 font-medium">
-=======
-            <Button size="sm" variant="outline" className="border-primary/30 text-primary hover:bg-primary hover:text-primary-foreground">
->>>>>>> de76d127878e4568f1fddf8edfd693ffe015144c
               Dashboard
             </Button>
           </Link>
