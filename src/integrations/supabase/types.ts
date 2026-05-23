@@ -56,6 +56,36 @@ export type Database = {
         }
         Relationships: []
       }
+      customers: {
+        Row: {
+          created_at: string
+          id: string
+          name: string
+          phone: string | null
+          total_orders: number
+          total_spent: number
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          name: string
+          phone?: string | null
+          total_orders?: number
+          total_spent?: number
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          name?: string
+          phone?: string | null
+          total_orders?: number
+          total_spent?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
       inventory_transactions: {
         Row: {
           created_at: string
@@ -99,6 +129,8 @@ export type Database = {
           description: string | null
           id: string
           name: string
+          price_3: number
+          price_6: number
           selling_price: number
           stock: number
           updated_at: string
@@ -110,6 +142,8 @@ export type Database = {
           description?: string | null
           id?: string
           name: string
+          price_3?: number
+          price_6?: number
           selling_price?: number
           stock?: number
           updated_at?: string
@@ -121,6 +155,8 @@ export type Database = {
           description?: string | null
           id?: string
           name?: string
+          price_3?: number
+          price_6?: number
           selling_price?: number
           stock?: number
           updated_at?: string
@@ -176,8 +212,12 @@ export type Database = {
         Row: {
           created_at: string
           created_by: string
+          customer_id: string | null
+          customer_name: string | null
           date: string
           id: string
+          invoice_number: string | null
+          payment_method: string | null
           total_cost: number
           total_profit: number
           total_revenue: number
@@ -185,8 +225,12 @@ export type Database = {
         Insert: {
           created_at?: string
           created_by: string
+          customer_id?: string | null
+          customer_name?: string | null
           date?: string
           id?: string
+          invoice_number?: string | null
+          payment_method?: string | null
           total_cost?: number
           total_profit?: number
           total_revenue?: number
@@ -194,13 +238,25 @@ export type Database = {
         Update: {
           created_at?: string
           created_by?: string
+          customer_id?: string | null
+          customer_name?: string | null
           date?: string
           id?: string
+          invoice_number?: string | null
+          payment_method?: string | null
           total_cost?: number
           total_profit?: number
           total_revenue?: number
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "sales_customer_id_fkey"
+            columns: ["customer_id"]
+            isOneToOne: false
+            referencedRelation: "customers"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       sales_items: {
         Row: {
