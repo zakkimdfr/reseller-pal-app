@@ -212,7 +212,7 @@ export default function Sales() {
             </DialogHeader>
             <div className="space-y-4">
               <div className="rounded-md bg-muted/50 px-3 py-2 font-sans text-xs text-muted-foreground">
-                Invoice: <span className="font-semibold text-foreground">{invoicePreview}</span>
+                Invoice: <span className="font-semibold text-foreground">otomatis dibuat saat disimpan</span>
               </div>
 
               <div className="grid grid-cols-2 gap-2">
