@@ -18,23 +18,15 @@ export default function Register() {
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    const { data, error } = await supabase.auth.signUp({
+    const { error } = await supabase.auth.signUp({
       email,
       password,
       options: { data: { name } },
     });
+    setLoading(false);
     if (error) {
-      setLoading(false);
       toast({ variant: "destructive", title: "Registrasi gagal", description: error.message });
     } else {
-      const userId = data.user?.id;
-      if (userId) {
-        const { error: roleErr } = await supabase
-          .from("user_roles")
-          .insert({ user_id: userId, role: "owner" });
-        if (roleErr) console.error("Failed to assign owner role:", roleErr);
-      }
-      setLoading(false);
       toast({ title: "Berhasil!", description: "Akun berhasil dibuat. Silakan login." });
       navigate("/login");
     }
