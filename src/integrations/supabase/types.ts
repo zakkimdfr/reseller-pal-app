@@ -121,6 +121,62 @@ export type Database = {
           },
         ]
       }
+      payments: {
+        Row: {
+          amount: number
+          created_at: string
+          id: string
+          payment_method: string | null
+          payment_token: string | null
+          payment_url: string | null
+          provider: string
+          provider_order_id: string | null
+          provider_transaction_id: string | null
+          raw_response: Json | null
+          sale_id: string
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          amount: number
+          created_at?: string
+          id?: string
+          payment_method?: string | null
+          payment_token?: string | null
+          payment_url?: string | null
+          provider?: string
+          provider_order_id?: string | null
+          provider_transaction_id?: string | null
+          raw_response?: Json | null
+          sale_id: string
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          amount?: number
+          created_at?: string
+          id?: string
+          payment_method?: string | null
+          payment_token?: string | null
+          payment_url?: string | null
+          provider?: string
+          provider_order_id?: string | null
+          provider_transaction_id?: string | null
+          raw_response?: Json | null
+          sale_id?: string
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "payments_sale_id_fkey"
+            columns: ["sale_id"]
+            isOneToOne: false
+            referencedRelation: "sales"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       products: {
         Row: {
           category: string
@@ -210,43 +266,88 @@ export type Database = {
       }
       sales: {
         Row: {
+          cancelled_at: string | null
           created_at: string
           created_by: string
           customer_id: string | null
           customer_name: string | null
+          customer_phone: string | null
           date: string
+          delivered_at: string | null
           id: string
           invoice_number: string | null
+          notes: string | null
+          paid_at: string | null
           payment_method: string | null
+          shipped_at: string | null
+          shipping_address: string | null
+          shipping_city: string | null
+          shipping_cost: number
+          shipping_courier: string | null
+          shipping_postal_code: string | null
+          shipping_service: string | null
+          source: string
+          status: string
           total_cost: number
           total_profit: number
           total_revenue: number
+          tracking_number: string | null
         }
         Insert: {
+          cancelled_at?: string | null
           created_at?: string
           created_by: string
           customer_id?: string | null
           customer_name?: string | null
+          customer_phone?: string | null
           date?: string
+          delivered_at?: string | null
           id?: string
           invoice_number?: string | null
+          notes?: string | null
+          paid_at?: string | null
           payment_method?: string | null
+          shipped_at?: string | null
+          shipping_address?: string | null
+          shipping_city?: string | null
+          shipping_cost?: number
+          shipping_courier?: string | null
+          shipping_postal_code?: string | null
+          shipping_service?: string | null
+          source?: string
+          status?: string
           total_cost?: number
           total_profit?: number
           total_revenue?: number
+          tracking_number?: string | null
         }
         Update: {
+          cancelled_at?: string | null
           created_at?: string
           created_by?: string
           customer_id?: string | null
           customer_name?: string | null
+          customer_phone?: string | null
           date?: string
+          delivered_at?: string | null
           id?: string
           invoice_number?: string | null
+          notes?: string | null
+          paid_at?: string | null
           payment_method?: string | null
+          shipped_at?: string | null
+          shipping_address?: string | null
+          shipping_city?: string | null
+          shipping_cost?: number
+          shipping_courier?: string | null
+          shipping_postal_code?: string | null
+          shipping_service?: string | null
+          source?: string
+          status?: string
           total_cost?: number
           total_profit?: number
           total_revenue?: number
+          tracking_number?: string | null
         }
         Relationships: [
           {
@@ -305,6 +406,95 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      shipping_events: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: string
+          location: string | null
+          occurred_at: string
+          raw_event: Json | null
+          sale_id: string
+          status: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          location?: string | null
+          occurred_at?: string
+          raw_event?: Json | null
+          sale_id: string
+          status: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          location?: string | null
+          occurred_at?: string
+          raw_event?: Json | null
+          sale_id?: string
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "shipping_events_sale_id_fkey"
+            columns: ["sale_id"]
+            isOneToOne: false
+            referencedRelation: "sales"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      telegram_authorized_users: {
+        Row: {
+          added_at: string
+          chat_id: number
+          name: string
+          user_id: string | null
+        }
+        Insert: {
+          added_at?: string
+          chat_id: number
+          name: string
+          user_id?: string | null
+        }
+        Update: {
+          added_at?: string
+          chat_id?: number
+          name?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      telegram_sessions: {
+        Row: {
+          chat_id: number
+          created_at: string
+          current_draft: Json | null
+          last_message_at: string
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          chat_id: number
+          created_at?: string
+          current_draft?: Json | null
+          last_message_at?: string
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          chat_id?: number
+          created_at?: string
+          current_draft?: Json | null
+          last_message_at?: string
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: []
       }
       testimonials: {
         Row: {
