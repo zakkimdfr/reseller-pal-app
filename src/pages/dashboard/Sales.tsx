@@ -293,24 +293,38 @@ export default function Sales() {
                 <TableHead>Tanggal</TableHead>
                 <TableHead>Invoice</TableHead>
                 <TableHead>Pelanggan</TableHead>
+                <TableHead>Status</TableHead>
                 <TableHead>Oleh</TableHead>
                 <TableHead>Revenue</TableHead>
                 <TableHead>Profit</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
-              {sales.map((s: any) => (
-                <TableRow key={s.id}>
-                  <TableCell className="font-sans text-sm">{new Date(s.date).toLocaleDateString("id-ID")}</TableCell>
-                  <TableCell className="font-sans text-xs text-muted-foreground">{s.invoice_number ?? "-"}</TableCell>
-                  <TableCell className="font-sans text-sm">{s.customer_name ?? "-"}</TableCell>
-                  <TableCell className="font-sans text-sm">{s.profiles?.name ?? "-"}</TableCell>
-                  <TableCell className="font-sans text-sm">{fmt(Number(s.total_revenue))}</TableCell>
-                  <TableCell className="font-sans text-sm font-bold text-primary">{fmt(Number(s.total_profit))}</TableCell>
-                </TableRow>
-              ))}
+              {sales.map((s: any) => {
+                const statusMeta: Record<string, { label: string; variant: "default" | "secondary" | "outline" | "destructive" }> = {
+                  draft: { label: "Draft", variant: "outline" },
+                  pending_payment: { label: "Menunggu Bayar", variant: "secondary" },
+                  paid: { label: "Lunas", variant: "default" },
+                  shipped: { label: "Dikirim", variant: "secondary" },
+                  delivered: { label: "Diterima", variant: "default" },
+                  cancelled: { label: "Batal", variant: "destructive" },
+                  refunded: { label: "Refund", variant: "destructive" },
+                };
+                const meta = statusMeta[s.status as string] ?? { label: s.status ?? "-", variant: "outline" as const };
+                return (
+                  <TableRow key={s.id}>
+                    <TableCell className="font-sans text-sm">{new Date(s.date).toLocaleDateString("id-ID")}</TableCell>
+                    <TableCell className="font-sans text-xs text-muted-foreground">{s.invoice_number ?? "-"}</TableCell>
+                    <TableCell className="font-sans text-sm">{s.customer_name ?? "-"}</TableCell>
+                    <TableCell><Badge variant={meta.variant} className="text-xs">{meta.label}</Badge></TableCell>
+                    <TableCell className="font-sans text-sm">{s.profiles?.name ?? "-"}</TableCell>
+                    <TableCell className="font-sans text-sm">{fmt(Number(s.total_revenue))}</TableCell>
+                    <TableCell className="font-sans text-sm font-bold text-primary">{fmt(Number(s.total_profit))}</TableCell>
+                  </TableRow>
+                );
+              })}
               {sales.length === 0 && (
-                <TableRow><TableCell colSpan={6} className="text-center font-sans text-sm text-muted-foreground">Belum ada penjualan.</TableCell></TableRow>
+                <TableRow><TableCell colSpan={7} className="text-center font-sans text-sm text-muted-foreground">Belum ada penjualan.</TableCell></TableRow>
               )}
             </TableBody>
           </Table>
